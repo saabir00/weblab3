@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jamal Akhmedov's cv</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <img src="download.avif" alt="Profile Picture" class="profile-pic" />
+      <h2>CONTACT</h2>
+      <div class="deyisdirilebilen">
+        <p>Phone Number: +994 50 341 43 65</p>
+        <p>Mail: jamalakhmeov@gmail.com</p>
+        <p>Live location: Azerbaijan, Sumgait</p>
+        <p>Site: www.developerjamal.com</p>
+      </div>
+
+      <h2>EDUCATION</h2>
+      <div class="deyisdirilebilen">
+      <div id="education">
+        <p><strong>2022 - 2025</strong><br>Azerbaijan Technical University<br>Information technologies</p>
+        <p><strong>2026 - 2030</strong><br>ADA University<br>Computer Engineering</p>
+      </div></div>
+      <button class="add-btn" onclick="addItem('education', 'Enter education info')">+ Add</button>
+
+      <h2>SKILLS</h2>
+      <div id="skills">
+        <ul><div class="deyisdirilebilen">
+            <li>Teamwork</li>
+            <li>Leadership</li>
+            <li>Critical Thinking</li>
+            <li>Communication skills</li></div>
+        </ul>
+      </div>
+      <button class="add-btn" onclick="addItem('skills', 'Enter new skill')">+ Add</button>
+
+      <h2>LANGUAGES</h2>
+      <div class="deyisdirilebilen">
+      <div id="languages">
+        <p>English (C2)    Russian (B1)</p>
+        <p>French (B1)    Spanish (A2)</p></div>
+      </div>
+      <button class="add-btn" onclick="addItem('languages', 'Enter new language')">+ Add</button>
+    </div>
+
+    <div class="content">
+      <header>
+        <h1>JAMAL AKHMEDOV</h1>
+        <h2>DEVELOPER</h2>
+      </header>
+
+      <section>
+        <h3>PROFILE</h3>
+        <div class="deyisdirilebilen">
+        <p>My name is Jamal Akhmedov, and I’m a passionate and dedicated software developer with a strong interest in creating efficient, scalable, and user-friendly applications. I specialize in [your main programming languages or technologies – e.g., JavaScript, Python, C#, etc.] and have experience working on both front-end and back-end development. With a problem-solving mindset and a continuous drive to learn new technologies, I enjoy building solutions that make a real impact. I have worked on various projects ranging from web and mobile applications to automation tools and database systems. I value clean code, teamwork, and lifelong learning. Whether I'm collaborating with a team or working independently, I always aim to deliver high-quality and reliable software. In my free time, I enjoy exploring new frameworks, contributing to open-source projects, and staying up to date with the latest trends in the tech industry.</p>
+      </div></section>
+
+      <section>
+        <h3>WORK EXPERIENCE</h3>
+        <div class="deyisdirilebilen">
+        <div id="work-experience">
+            <h3>Front-End Developer – PixelCraft Studios (2025–Present)</h3>
+            <ul>
+              <li>Developed and maintained responsive user interfaces using React.js and Tailwind CSS
+              <li>Collaborated with UI/UX designers to enhance usability and aesthetics</li>
+              <li>Implemented RESTful API integrations for dynamic content rendering</li>
+            </ul>
+          </div>
+          <div class="job">
+            <h3>Full-Stack Developer – CodeNest Solutions</h3>
+            <ul>
+              <li>Built scalable web applications using Node.js and Express.js</li>
+              <li>Managed database architecture with MongoDB and PostgreSQL</li>
+              <li>Led a team of 4 developers in agile sprints and code reviews</li>
+            </ul>
+          </div>
+          <div class="job">
+            <h3>Junior Web Developer – TechBridge Inc.</h3>
+            <ul>
+              <li>Assisted in developing company website using HTML, CSS, and JavaScript</li>
+  
+                  <li>Created reusable components and maintained cross-browser compatibility</li>
+                  
+                  <li>Participated in daily stand-ups and contributed to bug fixing</li>
+            </ul>
+          </div>
+          <div class="job">
+              <h3>Intern – AppHive Labs</h3>
+              <ul>
+                <li>Supported mobile app development with basic Flutter components</li>
+                  <li>Learned version control using Git and GitHub</li>
+                  <li>Helped write documentation and performed basic QA testing</li>
+              </ul></div>
+        </div>
+        <button class="add-btn" onclick="addItem('work-experience', 'Enter work experience')">+ Add</button>
+      </section>
+
+      <section>
+        <h3>REFERENCE</h3>
+        <div class="deyisdirilebilen">
+        <div id="reference">
+            <p><strong>Guluyev Murad</strong><br>Senior Software Engineer – CodeNest Solutions<br> +994 77 423 95 21<br> guluyeffmurad@gmail.com</p>
+            <p><strong>Badalzada Rustam</strong><br>Project Manager – PixelCraft Studios<br> +994 55 216 98 34<br> badalzadaaarustem@hotmail.com</p>
+        </div></div>
+        <button class="add-btn" onclick="addItem('reference', 'Enter new reference')">+ Add</button>
+      </section>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
