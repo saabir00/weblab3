@@ -65,34 +65,97 @@ function addItem(sectionId, placeholderText) {
   section.appendChild(saveBtn);
 }
 
+const editableSelectors = "h1, h2, h3, h4, h5, h6, p, li";
+
+// Başlıqlar və mətnlərə funksiyaları tətbiq et
+document.querySelectorAll(editableSelectors).forEach(el => {
+  attachEditable(el);
+
+  if (el.tagName.toLowerCase().startsWith("h")) {
+    addToggleButton(el);
+  }
+});
+
+// 🖊 Redaktə oluna bilən element funksiyası
 function attachEditable(el) {
-  el.addEventListener('click', () => {
-    const textarea = document.createElement('textarea');
-    textarea.value = el.innerText;
-    textarea.style.width = "100%";
-    textarea.style.minHeight = "60px";
-    textarea.style.fontSize = "14px";
-    textarea.style.padding = "8px";
-    textarea.style.borderRadius = "6px";
-    textarea.style.border = "1px solid #ccc";
+  el.style.cursor = "pointer";
 
-    el.replaceWith(textarea);
-    textarea.focus();
+  el.addEventListener("click", (e) => {
+    if (e.target.classList.contains("toggle-btn")) return; // toggle kliklərindən çıx
 
-    textarea.addEventListener('blur', () => {
-      const newElement = document.createElement(el.tagName.toLowerCase());
-      newElement.className = 'deyisdirilebilen';
-      newElement.innerText = textarea.value;
-      textarea.replaceWith(newElement);
-      attachEditable(newElement);
+    const isMultiline = ["p", "li"].includes(el.tagName.toLowerCase());
+    const editor = isMultiline ? document.createElement("textarea") : document.createElement("input");
+
+    if (!isMultiline) editor.type = "text";
+
+    editor.value = el.innerText;
+    editor.style.width = "100%";
+    editor.style.fontSize = "14px";
+    editor.style.padding = "6px";
+    editor.style.border = "1px solid #ccc";
+    editor.style.borderRadius = "6px";
+    editor.style.boxSizing = "border-box";
+    editor.style.marginTop = "4px";
+
+    el.replaceWith(editor);
+    editor.focus();
+
+    editor.addEventListener("blur", () => {
+      const newEl = document.createElement(el.tagName.toLowerCase());
+      newEl.innerText = editor.value;
+      newEl.className = el.className;
+      attachEditable(newEl);
+
+      if (el.classList.contains("has-toggle")) {
+        addToggleButton(newEl);
+      }
+
+      editor.replaceWith(newEl);
     });
 
-    textarea.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
+    editor.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && (!isMultiline || !e.shiftKey)) {
         e.preventDefault();
-        textarea.blur();
+        editor.blur();
       }
     });
   });
 }
-document.querySelectorAll('.deyisdirilebilen').forEach(attachEditable);
+
+// 🔽 Toggle düyməsini başlıqlara əlavə edən funksiya
+function addToggleButton(headerEl) {
+  const toggleBtn = document.createElement("button");
+  toggleBtn.textContent = "▼";
+  toggleBtn.className = "toggle-btn";
+  toggleBtn.style.marginLeft = "10px";
+  toggleBtn.style.fontSize = "0.8em";
+  toggleBtn.style.cursor = "pointer";
+  toggleBtn.style.background = "none";
+  toggleBtn.style.border = "none";
+  toggleBtn.style.color = "#333";
+
+  headerEl.appendChild(toggleBtn);
+  headerEl.classList.add("has-toggle");
+
+  toggleBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); // Redaktəni blokla
+
+    const content = getNextContent(headerEl);
+    if (content) {
+      const isHidden = content.style.display === "none";
+      content.style.display = isHidden ? "block" : "none";
+      toggleBtn.textContent = isHidden ? "▼" : "▲";
+    }
+  });
+}
+
+// 🔍 Başlıqdan sonra gələn paraqraf, siyahı və ya div-i tap
+function getNextContent(headerEl) {
+  let next = headerEl.nextElementSibling;
+  while (next) {
+    const tag = next.tagName.toLowerCase();
+    if (["p", "ul", "ol", "div"].includes(tag)) return next;
+    next = next.nextElementSibling;
+  }
+  return null;
+}
