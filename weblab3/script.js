@@ -3,7 +3,7 @@ const headers = document.querySelectorAll("h1, h2, h3");
 headers.forEach(header => {
   header.addEventListener("mouseenter", () => {
     header.style.transition = "all 0.3s ease";
-    header.style.color = "FF0000";
+    header.style.color = "#FF0000"; 
     header.style.transform = "scale(1.05)";
   });
 
@@ -12,7 +12,6 @@ headers.forEach(header => {
     header.style.transform = "scale(1)";
   });
 });
-
 function addItem(sectionId, placeholderText) {
   const section = document.getElementById(sectionId);
   const input = document.createElement("textarea");
@@ -54,9 +53,11 @@ function addItem(sectionId, placeholderText) {
     if (value !== "") {
       const newItem = document.createElement("p");
       newItem.textContent = value;
+      newItem.className = "deyisdirilebilen";
       section.insertBefore(newItem, input);
       input.remove();
       saveBtn.remove();
+      attachEditable(newItem);
     }
   };
 
@@ -64,50 +65,34 @@ function addItem(sectionId, placeholderText) {
   section.appendChild(saveBtn);
 }
 
-document.querySelectorAll('.deyisdirilebilen').forEach(element => {
-  element.addEventListener('click', () => {
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.value = element.innerText;
-    element.replaceWith(input);
-    input.focus();
-
-    input.addEventListener('blur', () => {
-      const newElement = document.createElement(element.tagName.toLowerCase());
-      newElement.className = 'deyisdirilebilen';
-      newElement.innerText = input.value;
-      input.replaceWith(newElement);
-      attachEditable(newElement);
-    });
-
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        input.blur();
-      }
-    });
-  });
-});
-
 function attachEditable(el) {
   el.addEventListener('click', () => {
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.value = el.innerText;
-    el.replaceWith(input);
-    input.focus();
+    const textarea = document.createElement('textarea');
+    textarea.value = el.innerText;
+    textarea.style.width = "100%";
+    textarea.style.minHeight = "60px";
+    textarea.style.fontSize = "14px";
+    textarea.style.padding = "8px";
+    textarea.style.borderRadius = "6px";
+    textarea.style.border = "1px solid #ccc";
 
-    input.addEventListener('blur', () => {
+    el.replaceWith(textarea);
+    textarea.focus();
+
+    textarea.addEventListener('blur', () => {
       const newElement = document.createElement(el.tagName.toLowerCase());
-      newElement.className = 'editable';
-      newElement.innerText = input.value;
-      input.replaceWith(newElement);
+      newElement.className = 'deyisdirilebilen';
+      newElement.innerText = textarea.value;
+      textarea.replaceWith(newElement);
       attachEditable(newElement);
     });
 
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        input.blur();
+    textarea.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        textarea.blur();
       }
     });
   });
 }
+document.querySelectorAll('.deyisdirilebilen').forEach(attachEditable);
