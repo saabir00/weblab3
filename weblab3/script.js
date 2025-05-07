@@ -67,7 +67,6 @@ function addItem(sectionId, placeholderText) {
 
 const editableSelectors = "h1, h2, h3, h4, h5, h6, p, li";
 
-// Başlıqlar və mətnlərə funksiyaları tətbiq et
 document.querySelectorAll(editableSelectors).forEach(el => {
   attachEditable(el);
 
@@ -76,12 +75,11 @@ document.querySelectorAll(editableSelectors).forEach(el => {
   }
 });
 
-// 🖊 Redaktə oluna bilən element funksiyası
 function attachEditable(el) {
   el.style.cursor = "pointer";
 
   el.addEventListener("click", (e) => {
-    if (e.target.classList.contains("toggle-btn")) return; // toggle kliklərindən çıx
+    if (e.target.classList.contains("toggle-btn")) return;
 
     const isMultiline = ["p", "li"].includes(el.tagName.toLowerCase());
     const editor = isMultiline ? document.createElement("textarea") : document.createElement("input");
@@ -122,7 +120,6 @@ function attachEditable(el) {
   });
 }
 
-// 🔽 Toggle düyməsini başlıqlara əlavə edən funksiya
 function addToggleButton(headerEl) {
   const toggleBtn = document.createElement("button");
   toggleBtn.textContent = "▼";
@@ -138,7 +135,7 @@ function addToggleButton(headerEl) {
   headerEl.classList.add("has-toggle");
 
   toggleBtn.addEventListener("click", (e) => {
-    e.stopPropagation(); // Redaktəni blokla
+    e.stopPropagation();
 
     const content = getNextContent(headerEl);
     if (content) {
@@ -149,7 +146,6 @@ function addToggleButton(headerEl) {
   });
 }
 
-// 🔍 Başlıqdan sonra gələn paraqraf, siyahı və ya div-i tap
 function getNextContent(headerEl) {
   let next = headerEl.nextElementSibling;
   while (next) {
